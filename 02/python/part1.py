@@ -1,6 +1,6 @@
 file = open("../data/input", "r")
-
 nums = list(map(int, file.read().splitlines()[0].split(',')))
+file.close()
 
 nums[1] = 12
 nums[2] = 2
