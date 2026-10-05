@@ -7,7 +7,6 @@ stop = int(lines[0].split('-')[1])
 
 count = 0
 for num in range(start, stop + 1):
-    doubleFound = False
     incrementingNum = True
     numString = str(num)
 
@@ -17,10 +16,23 @@ for num in range(start, stop + 1):
 
             break
 
-        if numString[index] == numString[index - 1]:
-            doubleFound = True
+    if not incrementingNum:
+        continue
 
-    if doubleFound and incrementingNum:
-        count += 1
+    for index in range(0, len(numString)):
+        groupSize = 1
+
+        for back in range(index - 1, -1, -1):
+            if numString[back] == numString[index]:
+                groupSize += 1
+
+        for fwd in range(index + 1, len(numString)):
+            if numString[fwd] == numString[index]:
+                groupSize += 1
+
+        if groupSize == 2:
+            count += 1
+
+            break
 
 print("Number of valid passwords =", count)
