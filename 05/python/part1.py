@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Mode(Enum):
     POSITION = 0
     IMMEDIATE = 1
@@ -20,8 +21,8 @@ while nums[index] != "99":
     if len(nums[index]) > 2:
         mode0 = Mode(int(nums[index][-3:-2]))
 
-    if len(nums[index]) > 3:
-        mode1 = Mode(int(nums[index][-4:-3]))
+        if len(nums[index]) > 3:
+            mode1 = Mode(int(nums[index][-4:-3]))
 
     match opCode:
         case "1":
@@ -36,6 +37,7 @@ while nums[index] != "99":
             nums[int(nums[index + 3])] = str(arg0 + arg1)
 
             index += 4
+
         case "2":
             arg0 = int(nums[index + 1])
             if mode0 == Mode.POSITION:
@@ -48,14 +50,21 @@ while nums[index] != "99":
             nums[int(nums[index + 3])] = str(arg0 * arg1)
 
             index += 4
+
         case "3":
             nums[int(nums[index + 1])] = register
 
             index += 2
+
         case "4":
-            register = nums[int(nums[index + 1])]
+            arg0 = int(nums[index + 1])
+            if mode0 == Mode.POSITION:
+                arg0 = int(nums[int(nums[index + 1])])
+
+            register = arg0
 
             index += 2
+
         case _:
             print("We broke!")
 
